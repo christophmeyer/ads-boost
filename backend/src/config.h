@@ -1,0 +1,7 @@
+#ifndef ADSBOOST_CONFIG_H_
+#define ADSBOOST_CONFIG_H_
+
+#define BUFFER_LEN 16 * 16384
+#define BUFFER_OVERLAP 480
+
+#endif  // ADSBOOST_CONFIG_H_

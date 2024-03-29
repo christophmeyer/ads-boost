@@ -1,0 +1,28 @@
+services:
+  ads-boost-frontend:
+    container_name: ads-boost-frontend
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    image: cmeyr/ads-boost-frontend
+    ports:
+      - ${FRONTEND_PORT}:80
+  ads-boost-backend:
+    container_name: ads-boost-backend
+    build:
+      context: ./
+      dockerfile: ./backend/Dockerfile
+    image: cmeyr/ads-boost-backend
+    devices:
+     - "/dev/bus/usb"
+    ports:
+      - 8000:8000
+    command:
+      - "./ads-boost"
+      - "-n"
+      - "-p"
+      - "8000"
+      - "b"
+      - ${LAT_REF}
+      - "l"
+      - ${LON_REF}
