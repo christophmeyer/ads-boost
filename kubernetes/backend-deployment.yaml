@@ -21,8 +21,23 @@ spec:
           ports:
             - containerPort: 8000
               name: http
+          env:
+            - name: LAT_REF
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: LAT_REF
+            - name: LON_REF
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: LON_REF
           command:
             - "./ads-boost"
             - "-n"
             - "-p"
             - "8000"
+            - "b"
+            - "$(LAT_REF)"
+            - "l"
+            - "$(LON_REF)"

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: ads-boost
+data:
+  LAT_REF: "51.8202"
+  LON_REF: "9.8696"
