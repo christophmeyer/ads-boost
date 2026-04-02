@@ -32,6 +32,9 @@ spec:
                 configMapKeyRef:
                   name: backend-config
                   key: LON_REF
+          volumeMounts:
+            - name: logs
+              mountPath: /data/logs
           command:
             - "./ads-boost"
             - "-n"
@@ -41,3 +44,9 @@ spec:
             - "$(LAT_REF)"
             - "l"
             - "$(LON_REF)"
+            - "o"
+            - "/data/logs"
+      volumes:
+        - name: logs
+          persistentVolumeClaim:
+            claimName: ads-boost-logs
