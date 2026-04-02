@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: ads-boost
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: cmeyr/ads-boost-backend
+          ports:
+            - containerPort: 8000
+              name: http
+          command:
+            - "./ads-boost"
+            - "-n"
+            - "-p"
+            - "8000"
