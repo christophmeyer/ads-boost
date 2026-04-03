@@ -35,6 +35,10 @@ spec:
           volumeMounts:
             - name: logs
               mountPath: /data/logs
+            - name: usb-devices
+              mountPath: /dev/bus/usb
+          securityContext:
+            privileged: true
           command:
             - "./ads-boost"
             - "-n"
@@ -50,3 +54,7 @@ spec:
         - name: logs
           persistentVolumeClaim:
             claimName: ads-boost-logs
+        - name: usb-devices
+          hostPath:
+            path: /dev/bus/usb
+            type: Directory
