@@ -4,5 +4,5 @@ metadata:
   name: backend-config
   namespace: ads-boost
 data:
-  LAT_REF: "51.8202"
-  LON_REF: "9.8696"
+  LAT_REF: "52.52"
+  LON_REF: "13.405"
