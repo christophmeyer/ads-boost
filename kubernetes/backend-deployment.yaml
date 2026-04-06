@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: ads-boost
+  labels:
+    app: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: cmeyr/ads-boost-backend
+          ports:
+            - containerPort: 8000
+              name: http
+          env:
+            - name: LAT_REF
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: LAT_REF
+            - name: LON_REF
+              valueFrom:
+                configMapKeyRef:
+                  name: backend-config
+                  key: LON_REF
+          volumeMounts:
+            - name: logs
+              mountPath: /data/logs
+            - name: usb-devices
+              mountPath: /dev/bus/usb
+          securityContext:
+            privileged: true
+          command:
+            - "./ads-boost"
+            - "-n"
+            - "-p"
+            - "8000"
+            - "b"
+            - "$(LAT_REF)"
+            - "l"
+            - "$(LON_REF)"
+            - "o"
+            - "/data/logs"
+      volumes:
+        - name: logs
+          persistentVolumeClaim:
+            claimName: ads-boost-logs
+        - name: usb-devices
+          hostPath:
+            path: /dev/bus/usb
+            type: Directory
